@@ -1,0 +1,31 @@
+collision_monitor:
+  ros__parameters:
+    use_sim_time: False
+    base_frame_id: "base_link"
+    odom_frame_id: "odom"
+
+    cmd_vel_in_topic: "/cmd_vel"
+    cmd_vel_out_topic: "/cmd_vel_safe"
+
+    transform_tolerance: 0.20
+    source_timeout: 0.50
+    base_shift_correction: False
+    stop_pub_timeout: 1.0
+
+    polygons: ["EmergencyStop"]
+
+    EmergencyStop:
+      type: "polygon"
+      points: [1.060, 0.420, 1.060, -0.420, -0.605, -0.420, -0.605, 0.420]
+      action_type: "stop"
+      max_points: 3
+      visualize: True
+      polygon_pub_topic: "/amr/emergency_stop_zone"
+      enabled: True
+
+    observation_sources: ["scan"]
+
+    scan:
+      type: "scan"
+      topic: "/scan"
+      enabled: True

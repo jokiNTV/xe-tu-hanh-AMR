@@ -1,0 +1,26 @@
+schema_version: 1
+map:
+  frame_id: map
+  yaml_file: /home/vohoaibao/amr_ws/maps/mapphongvip1.yaml
+B2_NOT:
+  description: Alignment point before B2
+  position:
+    x: 2.699
+    y: -0.063
+    z: 0.0
+  pose_align:
+    yaw_deg: 4.663
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.040681
+      w: 0.999172
+  relationship_to_target:
+    target: B2
+    straight_distance_m: 1.8
+    lateral_offset_m: 0.0
+  validation:
+    computed_on_target_axis: true
+    navigation_tested: false
+    alignment_tested: false
+    final_approach_tested: false

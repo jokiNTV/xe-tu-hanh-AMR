@@ -1,0 +1,31 @@
+schema_version: 1
+map:
+  frame_id: map
+  yaml_file: /home/vohoaibao/amr_ws/maps/mapphongvip1.yaml
+B2:
+  description: Final physical pickup position B2
+  position:
+    x: 4.493
+    y: 0.083
+    z: 0.0
+  pose_pickup:
+    yaw_deg: 4.663
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.040681
+      w: 0.999172
+  relationship_to_B1:
+    center_distance_m: 1.394
+    measured_edge_gap_m: 0.72
+    map_inferred_edge_gap_m: 0.654
+  localization:
+    covariance_x: 0.017102
+    covariance_y: 0.115784
+    covariance_yaw: 0.019207
+    needs_repeat_validation: true
+  validation:
+    tf_stable: true
+    physically_selected: true
+    final_approach_tested: false
+    return_path_tested: false

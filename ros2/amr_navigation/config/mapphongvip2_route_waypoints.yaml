@@ -1,0 +1,30 @@
+frame_id: map
+map_name: mapphongvip2
+version: 1
+
+waypoints:
+  A_HOME:
+    x: 3.969
+    y: -8.039
+    yaw_rad: 0.546
+    yaw_deg: 31.300
+    status: measured
+    source: "AMCL map_to_base_link, stationary"
+    note: "Physical A_HOME aligned; new map mapphongvip2"
+  B2_NOT_1_TO_B1:
+    x: 5.526
+    y: -7.435
+    yaw_rad: 0.399
+    yaw_deg: 22.841
+    status: measured
+    source: "AMCL map_to_base_link, stationary"
+    note: "Physical B2_NOT_1; heading toward B1_NOT_1"
+
+  B2_NOT_1_TO_B2:
+    x: 5.640
+    y: -7.479
+    yaw_rad: -1.145
+    yaw_deg: -65.594
+    status: measured
+    source: "AMCL map_to_base_link, stationary"
+    note: "Physical B2_NOT_1; heading right toward B2_NOT_2"

@@ -1,0 +1,41 @@
+HT_V1.1 - CÁC THAY ĐỔI CHỐT CHO TUYẾN B2
+=========================================
+
+1. SUPERVISOR + ESP32
+- Supervisor khởi động ngay sau kiểm tra tệp/phần cứng.
+- ESP32 có thể bắt tay và nhận ACK ngay từ đầu quá trình startup.
+- Chế độ nhận nhiệm vụ vẫn TẮT cho tới khi toàn bộ hệ thống ĐẠT.
+
+2. ROS2 CLI
+- param_get trong CORE có retry hữu hạn 3 lần, timeout từng lần.
+- Không bỏ kiểm tra cấu hình; nếu 3 lần đều không đọc được thì vẫn fail-closed.
+- Thêm 2 giây ổn định ROS graph trước audit Nav2.
+
+3. PREFLIGHT / MISSION
+- Thêm HT_V1_B2_AMR.py làm wrapper cho mission gốc.
+- Mission gốc vẫn được kiểm SHA256 và không bị sửa.
+- Wrapper chỉ retry các lệnh `ros2 param get` bị timeout giả.
+- Nếu preflight không đạt, GUI/log nhận đúng nguyên nhân cuối thay vì thông báo chung.
+
+4. ODOM / ĐỨNG YÊN
+- Chờ riêng mẫu /odom đầu tiên tới 4 giây.
+- Sau khi có mẫu mới bắt đầu cửa sổ đo đứng yên.
+- Không dùng giá trị giả 999 m/s khi không có dữ liệu.
+- n=0 được báo rõ là KHÔNG NHẬN ĐƯỢC /odom.
+
+5. GUI
+- ESP32 có thể hiện ĐÃ KẾT NỐI ngay trong khi các tầng ROS đang startup.
+- Vòng tròn phần trăm đổi thành TIẾN ĐỘ KHỞI ĐỘNG thật theo state machine.
+- Khi READY đổi thành TRẠNG THÁI SẴN SÀNG.
+
+6. GIỮ NGUYÊN
+- T1
+- T2 / Nav2 / FIX12
+- T3 Safety Gate
+- T4 Collision Monitor
+- mission B2 gốc / thuật toán đường chạy
+- safety chain /cmd_vel_nav -> smoother -> gate -> collision -> /cmd_vel_safe
+
+TIÊU CHUẨN CHƯA ĐƯỢC TỰ GỌI FINAL
+- Full B2 phải PASS thực tế.
+- Sau đó chạy 3 vòng liên tiếp PASS không can thiệp terminal.

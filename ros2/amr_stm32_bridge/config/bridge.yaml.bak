@@ -1,0 +1,42 @@
+amr_stm32_bridge:
+  ros__parameters:
+    # Prefer /dev/serial/by-id/... after the first connection test.
+    serial_port: /dev/ttyACM0
+    baud_rate: 115200
+
+    # 1=MANUAL, 2=AUTO. ROS 2 normally owns the drive in AUTO mode.
+    drive_mode: 2
+    # Keep false in normal operation. Use true for one launch only when an
+    # intentional operator action is needed to clear a latched STM32 fault.
+    clear_fault_on_connect: false
+    stream_period_ms: 50
+    reconnect_period_s: 2.0
+    connect_settle_s: 0.25
+    handshake_timeout_s: 0.75
+    stream_timeout_s: 2.0
+
+    # Host sends fresh wheel targets at 20 Hz. Missing cmd_vel produces zero
+    # after 250 ms; a stopped/hung host is independently caught by STM32 at
+    # 300 ms. One drive command per second requests an ACK to monitor state.
+    command_rate_hz: 20.0
+    cmd_vel_timeout_s: 0.25
+    stm32_command_timeout_ms: 300
+    drive_ack_every: 20
+
+    # Measured robot geometry and accepted Controller V2 wheel limit.
+    wheel_radius_m: 0.10
+    wheel_separation_m: 0.60
+    max_wheel_speed_rad_s: 4.5
+
+    cmd_vel_topic: /cmd_vel
+    odom_topic: /odom
+    odom_frame: odom
+    base_frame: base_link
+    publish_tf: true
+
+    # Conservative initial covariance for encoder + MPU6050 dead reckoning.
+    # Tune later with robot_localization, LiDAR and AMCL.
+    pose_xy_stddev: 0.02
+    pose_yaw_stddev: 0.03
+    twist_linear_stddev: 0.03
+    twist_angular_stddev: 0.05

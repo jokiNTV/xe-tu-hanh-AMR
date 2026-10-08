@@ -1,0 +1,39 @@
+schema_version: 1
+
+map:
+  frame_id: map
+  yaml_file: /home/vohoaibao/amr_ws/maps/mapphongvip1.yaml
+
+A_HOME:
+  description: Home center; final state faces outward
+
+  position:
+    x: 0.498
+    y: -1.500
+    z: 0.0
+
+  pose_out:
+    yaw_deg: 90.125
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.707878
+      w: 0.706335
+
+  pose_in:
+    yaw_deg: -89.875
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: -0.706335
+      w: 0.707878
+
+  provisional_xy_tolerance_m: 0.03
+
+  validation:
+    tf_stable: true
+    manual_rotation_360_unloaded: true
+    motor_rotation_tested: false
+    loaded_rotation_tested: false
+    nearest_lidar_obstacle_m: 1.127
+    padded_sweep_radius_m: 1.078

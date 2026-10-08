@@ -1,0 +1,68 @@
+/collision_monitor:
+  ros__parameters:
+
+    base_frame_id: base_link
+    odom_frame_id: odom
+
+    cmd_vel_in_topic: /cmd_vel_guarded
+    cmd_vel_out_topic: /cmd_vel_safe
+
+    transform_tolerance: 0.2
+    source_timeout: 0.5
+    stop_pub_timeout: 1.0
+    base_shift_correction: false
+
+    observation_sources:
+      - scan
+
+    scan:
+      type: scan
+      topic: /scan
+      enabled: true
+
+    polygons:
+      - BodyEmergencyStop
+      - FootprintApproach
+
+    # ---------------------------------------------------------
+    # FIX7 TEST LAST-RESORT HARD STOP
+    # The modeled footprint stays unchanged before/after PICK:
+    #   front +0.943 / rear -0.455 / side +/-0.370 m
+    # With Nav2 padding 0.05 m, padded body is approximately:
+    #   front +0.993 / rear -0.505 / side +/-0.420 m
+    # This restores the earlier body-based emergency envelope.
+    # TEST-ONLY: carried load protrusion is not represented. Keep test area clear.
+    # ---------------------------------------------------------
+    BodyEmergencyStop:
+      type: polygon
+      action_type: stop
+      points:
+        - 1.030
+        - 0.460
+        - 1.030
+        - -0.460
+        - -0.545
+        - -0.460
+        - -0.545
+        - 0.460
+      max_points: 3
+      visualize: true
+      polygon_pub_topic: /amr/body_emergency_stop_zone
+      enabled: true
+
+    # ---------------------------------------------------------
+    # MOTION-AWARE PROTECTION
+    # Uses the published local-costmap footprint; FIX7 keeps the same geometry before/after PICK.
+    # FIX7 reduces TTC from 1.2 s -> 0.6 s.
+    # At 0.35 m/s, 0.6 s is about 0.21 m of predicted travel before collision.
+    # This is intentionally less conservative than FIX3 while retaining safety.
+    # ---------------------------------------------------------
+    FootprintApproach:
+      type: polygon
+      action_type: approach
+      footprint_topic: /local_costmap/published_footprint
+      time_before_collision: 0.6
+      simulation_time_step: 0.05
+      max_points: 5
+      visualize: false
+      enabled: true

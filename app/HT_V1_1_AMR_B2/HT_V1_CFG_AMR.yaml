@@ -1,0 +1,45 @@
+he_thong:
+  ten: "HT_V1_1_AMR_B2"
+  nguoi_thuc_hien: "Nguyễn Thái Vinh"
+  ros_domain_id: 42
+  gui_port: 8080
+  esp32_timeout_s: 30
+  sensor1_hold_s: 5.0
+
+tep_on_dinh:
+  t1: "/home/vohoaibao/amr_ws/amr_new_route/ekf_v2_2a_test/amr_terminal1_ekf_V2_2A_TEST.sh"
+  t2: "/home/vohoaibao/Downloads/t2_mppi_035_FIX7_MAP_FIX12.sh"
+  t3: "/home/vohoaibao/Downloads/t3_gate_v3_FIX7.sh"
+  t4: "/home/vohoaibao/Downloads/t4_collision_monitor_FIX7.sh"
+  home_localizer: "/home/vohoaibao/amr_ws/amr_new_route/tools/home_localizer_v1.py"
+  mission: "/home/vohoaibao/Downloads/AMR_DEMO_FAST_V3_FIX11_B2_QR_PACKAGE/AMR_DEMO_FAST_V3_FIX11_B2_QR_YAW_RETRY1_ACT_V213C.py"
+  stations: "/home/vohoaibao/amr_ws/amr_new_nav/mission_v1_clean/stations_v1_clean.yaml"
+  map: "/home/vohoaibao/amr_ws/maps/mapVinh1_FIX12.yaml"
+
+phan_cung:
+  stm32_lai: "/dev/serial/by-id/usb-STMicroelectronics_STM32_Virtual_ComPort_376B36513235-if00"
+  stm32_co_cau: "/dev/serial/by-id/usb-STMicroelectronics_STM32_Virtual_ComPort_379336853235-if00"
+  lidar: "/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0"
+  camera: "/dev/v4l/by-id/usb-XIFT_Web_Camera_SN00010-video-index0"
+
+hash_on_dinh:
+  t1: "2a96e7a1a02a9956a38bacd95c244e9822a4da76f39e2152585950b843ae77a3"
+  t2: "7be2b987edd8df2b4d164eeab0ee3b4c523d64305c295655ab959da8dd6314fa"
+  t3: "e1cb4b690b39465988fdd9e2910c5e1eebfd59e0afdf4e6d16d09ba208aa35e4"
+  t4: "7f4866b8b8ed413b0ce7a0e307ff13ea8aae4cd4f4b9b17c26a2dca1a65ec9c2"
+  mission: "2ce4812665f250fa5526556a4c0f14f583dba5e08a8918298856e2c585e25292"
+  stations: "a3813b9402d5ec374e365699cf80606d25d1b974ba504303f93f6916a9f33f94"
+  map_yaml: "538d1e5659193efc4ff1407670ff013b12c125d414ec768b4f4a3374089c258f"
+
+nguong:
+  dung_yen_v_mps: 0.03
+  dung_yen_w_rad_s: 0.05
+  startup_settle_s: 10
+  lifecycle_cli_timeout_s: 4
+  param_cli_timeout_s: 5
+  param_cli_attempts: 3
+  param_audit_settle_s: 2.0
+  topic_cli_timeout_s: 4
+  odom_first_sample_wait_s: 4.0
+  odom_min_samples: 5
+  preflight_timeout_s: 120

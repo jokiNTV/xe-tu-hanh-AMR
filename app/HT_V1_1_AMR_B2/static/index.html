@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hệ thống điều khiển AMR - Tuyến B2</title>
+<link rel="stylesheet" href="/static/styles.css?v=13" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <img src="/static/nttu_logo.png" alt="NTTU" />
+    <div><b>TRƯỜNG ĐẠI HỌC<br>NGUYỄN TẤT THÀNH</b><small>THỰC HỌC - THỰC HÀNH - THỰC NGHIỆP</small></div>
+  </div>
+  <div class="title"><h1>HỆ THỐNG ĐIỀU KHIỂN AMR - TUYẾN B2</h1><div>Nguyễn Thái Vinh</div></div>
+  <div class="headRight"><div>📅 <span id="dateText">--</span></div><div>🕒 <span id="timeText">--</span></div><div class="net"><span class="dot green"></span><span>Đã kết nối<br><small>Điều khiển nội bộ</small></span></div></div>
+</header>
+
+<main class="dashboard">
+  <aside class="leftCol">
+    <section class="card">
+      <h2>⌁ TRẠNG THÁI HỆ THỐNG</h2>
+      <div class="row"><span>Hệ thống</span><span id="systemState" class="pill gray">ĐANG TẮT</span></div>
+      <div class="row"><span>Chế độ làm việc</span><span id="workState" class="pill gray">CHƯA BẬT</span></div>
+      <div class="row"><span>Trạng thái xe</span><span id="robotState" class="pill gray">ĐANG CHỜ</span></div>
+    </section>
+
+    <section class="card">
+      <h2>▣ NHIỆM VỤ B2</h2>
+      <div class="row"><span>Tuyến đường</span><b>A_H → B2 → TH → A_H</b></div>
+      <div class="row"><span>Trạng thái</span><span id="missionState">Đang chờ</span></div>
+      <div class="row"><span>Công đoạn</span><span id="missionStage">--</span></div>
+      <div class="flow"><span>A_H</span><i>→</i><span>B2</span><i>→</i><span>QR</span><i>→</i><span>LẤY</span><i>→</i><span>TH</span><i>→</i><span>THẢ</span><i>→</i><span>A_H</span></div>
+    </section>
+
+    <section class="card">
+      <h2>◉ TRẠNG THÁI CẢM BIẾN</h2>
+      <div class="row"><span>Cảm biến 1</span><span id="sensor1" class="pill gray">CHƯA RÕ</span></div>
+      <div class="row"><span>Cảm biến 2</span><span id="sensor2" class="pill gray">CHƯA RÕ</span></div>
+      <div class="row"><span>LiDAR</span><span id="lidarState" class="pill gray">CHƯA SẴN SÀNG</span></div>
+    </section>
+
+    <section class="card">
+      <h2>⌘ KẾT NỐI PHẦN CỨNG</h2>
+      <div class="hw"><span>ESP32 (WiFi)</span><b id="esp32State">Mất kết nối</b></div>
+      <div class="hw"><span>Camera</span><b id="cameraHw">Chưa sẵn sàng</b></div>
+      <div class="hw"><span>LiDAR</span><b id="lidarHw">Chưa sẵn sàng</b></div>
+      <div class="hw"><span>STM32 lái</span><b id="driveHw">Chưa sẵn sàng</b></div>
+      <div class="hw"><span>STM32 cơ cấu</span><b id="actHw">Chưa sẵn sàng</b></div>
+    </section>
+
+    <section class="card healthCard">
+      <h2 id="healthTitle">▥ TIẾN ĐỘ KHỞI ĐỘNG</h2>
+      <div class="health"><div class="ring"><span id="healthPct">0%</span></div><div class="checklist" id="healthList"></div></div>
+    </section>
+  </aside>
+
+  <section class="centerCol">
+    <section class="mapCard">
+      <div class="panelHead">
+        <h2>🗺 BẢN ĐỒ HOẠT ĐỘNG</h2>
+        <div class="mapBadges">
+          <span id="locBadge" class="badge gray">ĐỊNH VỊ CHƯA SẴN SÀNG</span>
+          <span id="scanBadge" class="badge gray">LIDAR CHƯA SẴN SÀNG</span>
+          <button id="btnClearTrail" class="wideBtn" title="Xóa vệt đã di chuyển">XÓA VỆT</button>
+          <button id="zoomOut">−</button>
+          <button id="zoomIn">+</button>
+          <button id="zoomReset">⌂</button>
+        </div>
+      </div>
+      <div class="mapWrap"><canvas id="mapCanvas"></canvas><div class="mapLegend"><b>Chú thích</b><span><i class="line dash"></i>Lộ trình dự kiến</span><span><i class="line solid"></i>Lộ trình đã di chuyển</span><span><i class="robotLegend"></i>Vị trí robot</span><span><i class="obsLegend"></i>Vật cản LiDAR</span></div></div>
+      <div class="mapFooter"><span>X: <b id="poseX">---</b> m</span><span>Y: <b id="poseY">---</b> m</span><span>Góc: <b id="poseYaw">---</b>°</span><span>Vận tốc: <b id="velV">0.000</b> m/s</span><span>Quay: <b id="velW">0.000</b> rad/s</span></div>
+    </section>
+
+    <section class="logCard"><div class="logTitle"><b>▤ NHẬT KÝ HOẠT ĐỘNG</b><span id="normalBadge" class="badge gray">ĐANG CHỜ</span></div><div id="logBox" class="logBox"></div></section>
+  </section>
+
+  <aside class="rightCol">
+    <section class="card cameraCard">
+      <div class="panelHead"><h2>▣ CAMERA GIÁM SÁT</h2><span id="cameraBadge" class="badge gray">CHƯA SẴN SÀNG</span></div>
+      <div class="cameraView"><img id="cameraFrame" alt="Camera" /><div id="cameraPlaceholder">CAMERA CHƯA SẴN SÀNG</div></div>
+    </section>
+
+    <section class="card controlCard">
+      <h2>🔧 ĐIỀU KHIỂN & KHÔI PHỤC</h2>
+      <div class="hint">Một lệnh mở giao diện, một nút bắt đầu ngày làm việc. Các kiểm tra kỹ thuật được hệ thống tự thực hiện.</div>
+      <button id="btnStart" class="btn primary">▶ BẮT ĐẦU LÀM VIỆC B2</button>
+      <div class="btnGrid3"><button id="btnEmergency" class="btn danger">■ DỪNG KHẨN</button><button id="btnPause" class="btn warn">Ⅱ DỪNG NHẬN ĐƠN</button><button id="btnResume" class="btn success">▶ TIẾP TỤC</button></div>
+      <div class="separator"><span>ĐỊNH VỊ</span></div>
+      <button id="btnResetAH" class="btn soft ahReset">⌖ ĐẶT LẠI VỊ TRÍ A_H</button>
+      <div class="separator"><span>KHÔI PHỤC CƠ CẤU</span></div>
+      <button id="btnResetAct" class="btn soft">↻ ĐẶT LẠI CƠ CẤU</button>
+      <div class="btnGrid2"><button id="btnOpen" class="btn soft">↔ MỞ KẸP 1 GIÂY</button><button id="btnClose" class="btn soft">↔ ĐÓNG KẸP 1 GIÂY</button><button id="btnUp" class="btn soft">↑ NÂNG 1 GIÂY</button><button id="btnDown" class="btn soft">↓ HẠ 1 GIÂY</button></div>
+      <button id="btnStopAct" class="btn outline">■ DỪNG CƠ CẤU</button>
+      <button id="btnStopSystem" class="btn outline redText">TẮT HỆ THỐNG CÓ KIỂM SOÁT</button>
+      <details class="advanced"><summary>Chi tiết kỹ thuật</summary><div id="techDetails">Chưa có dữ liệu.</div></details>
+    </section>
+  </aside>
+</main>
+<div id="toast" class="toast"></div>
+<script src="/static/app.js?v=13"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+HT_V1.1 - bổ sung ĐẶT LẠI VỊ TRÍ A_H
+- Giữ nguyên mission B2, T1/T2/T3/T4, Nav2, safety chain, STM32 và home_localizer_v1.py.
+- GUI thêm nút 'ĐẶT LẠI VỊ TRÍ A_H'.
+- Nút chỉ gọi service đã có: /amr/reset_to_A_H (std_srvs/srv/Trigger).
+- Không điều khiển robot di chuyển.
+- Guard backend:
+  + local operator only
+  + telemetry phải live
+  + CORE phải SAN_SANG
+  + Supervisor phải IDLE
+  + |v| <= 0.01 m/s
+  + |w| <= 0.02 rad/s
+  + operator phải xác nhận robot đang đúng mốc vật lý A_H
+- Khi reset thành công, trail trên GUI được xóa để tránh đường nối giả do pose nhảy.

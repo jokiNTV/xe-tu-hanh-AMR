@@ -1,0 +1,29 @@
+# AMR Mission V1 Clean - single source of truth for station poses
+# Created 2026-09-12
+# IMPORTANT:
+# - A_H below is the NEW authoritative home pose measured with the robot physically at home.
+# - Old A_H (0.011370, 0.028424, 0 deg) is legacy and must not be used by Mission V1 Clean.
+# - B1/B2/TH are unchanged for now and will be revalidated later.
+
+frame_id: map
+
+stations:
+  A_H:
+    x: 0.069265
+    y: 0.024873
+    yaw_deg: -0.003
+
+  B1:
+    x: 1.843524
+    y: -1.264819
+    yaw_deg: -90.101
+
+  B2:
+    x: 4.496492
+    y: -1.664181
+    yaw_deg: -89.825
+
+  TH:
+    x: 0.387401
+    y: 0.381130
+    yaw_deg: 179.713

@@ -1,0 +1,27 @@
+HT_V1.1 AMR B2 - Nguyễn Thái Vinh
+=================================
+
+VẬN HÀNH HẰNG NGÀY
+1. Robot đặt vật lý tại A_H, đứng yên, cơ cấu ở trạng thái bắt đầu.
+2. Mở terminal trong thư mục HT_V1_1_AMR_B2.
+3. Chạy đúng một lệnh:
+   ./HT_V1_START.sh
+4. Trình duyệt mở GUI. Nhấn đúng một nút:
+   BẮT ĐẦU LÀM VIỆC B2
+5. Không đặt vật trước Cảm biến 1 cho tới khi GUI báo HỆ THỐNG SẴN SÀNG.
+6. Khi SẴN SÀNG, giữ vật ở Cảm biến 1 liên tục 5 giây để tạo đúng một nhiệm vụ B2.
+
+DỪNG
+- DỪNG NHẬN ĐƠN: ngừng tạo nhiệm vụ mới, runtime vẫn hoạt động.
+- DỪNG KHẨN: ưu tiên dừng mission/actuator và khóa nhận nhiệm vụ.
+- TẮT HỆ THỐNG CÓ KIỂM SOÁT: kết thúc runtime sau kiểm tra an toàn.
+
+CƠ CẤU
+- ĐẶT LẠI CƠ CẤU
+- MỞ KẸP 1 GIÂY / ĐÓNG KẸP 1 GIÂY
+- NÂNG 1 GIÂY / HẠ 1 GIÂY chỉ chạy khi firmware STM32 #2 có lệnh tương ứng. Không dùng PICK/DROP để giả lập.
+
+LƯU Ý HT_V1.1
+- ESP32 được bộ giám sát ACK ngay từ đầu startup.
+- Work Mode chỉ BẬT sau khi T1, Nav2, T3, T4, preflight, camera, ESP32 đều đạt.
+- Mission gốc vẫn được kiểm SHA256 và không bị sửa. HT_V1_B2_AMR.py chỉ thêm retry cho ros2 param get.
